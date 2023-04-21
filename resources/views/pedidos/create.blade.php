@@ -1,26 +1,30 @@
 <x-app-layout>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <div class="py-12">
-        <div class="max-w-10xl mx-auto sm:px-6 lg:px-8">
-            <div class="max-w-7xl bg-grey-400 mx-auto overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-4xl py-8 px-6 bg-grey-400 mx-auto overflow-hidden shadow-xl sm:rounded-lg">
 
-                <!-- component -->
-                <div class="my-4">
-                    @if (session('mensaje'))
-                        <x-alerta>
-                            {{ session('mensaje') }}
-                        </x-alerta>
-                    @endif
-                </div>
-                <div class="my-8 ml-3">
+                <h5 class="text-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">Nuevo
+                    Pedido</h5>
 
-                    <a href="{{ route('articles.create') }}"
-                        class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i
-                            class="fas fa-plus"></i>&nbsp;Nuevo Artículo</a>
-                </div>
-                <table id="articulos"
+                <x-form action="{{ route('pedidos.store') }}" method="POST">
+                    <x-form-input name="sede" label="Introduce la sede" />
+                    <x-form-input name="producto" label="Introduce el producto" />
+
+                  
+
+                    <x-form-input name="cantidad" label="Introduce la cantidad" />
+
+                    <div class="mt-2">
+                        <button type="submit"
+                            class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i
+                                class="fas fa-plus"></i>&nbsp;Guardar</button>
+                        <a href="{{ route('dashboard') }}"
+                            class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i
+                                class="fa-solid fa-arrow-left"></i>&nbsp;Volver</a>
+                    </div>
+                </x-form>
+                <div class="mt-4">
+                    <table id="articulos"
                     class="w-full border-collapse bg-white text-left text-sm text-gray-500 text-center">
                     <thead class="bg-gray-50">
                         <tr>
@@ -81,17 +85,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="mt-4">
-                    {{ $articulos->links() }}
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('#articulos').DataTable();
-            });
-        </script>
-    </div>
-    </div>
     </div>
 </x-app-layout>

@@ -18,6 +18,10 @@
                     <x-nav-link href="{{ route('articles.index') }}" :active="request()->routeIs('articles.index')">
                         {{ __('Gestión de Articulos') }}
                     </x-nav-link>
+                    <!---Esto solo lo verá el admin---->
+                    <x-nav-link href="{{ route('pedidos.index') }}" :active="request()->routeIs('pedidos.index')">
+                        {{ __('Lista de Pedidos') }}
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -10,12 +10,18 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public $search = "";
+
     public function index()
     {
         //
-        $total=article::all()->count();
-        $articulos = article::orderby('id', 'desc')->paginate(8);
-        return view('articles.index', compact('articulos','total'));
+        $total = article::all()->count();
+        $articulos = article::orderby('id', 'desc')
+            ->where('nombre', 'like', "%{$this->search}%")
+            ->orwhere('descripcion', 'like', "%{$this->search}%")
+            ->paginate(8);
+        return view('articles.index', compact('articulos', 'total'));
     }
 
     /**
@@ -33,9 +39,9 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-    
-         //Hacemos las validaciones de todos los campos
-         $request->validate([
+
+        //Hacemos las validaciones de todos los campos
+        $request->validate([
             'nombre' => ['required', 'string', 'min:3', 'unique:articles,nombre'],
             'descripcion' => ['required', 'string', 'min:10'],
             'stock' => ['required', 'integer', 'min:1'],
@@ -50,7 +56,7 @@ class ArticleController extends Controller
         ]);
         return redirect()->route('articles.index')->with('mensaje', 'Articulo creado correctamente!!');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -75,20 +81,20 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-         //Hacemos las validaciones de todos los campos
-         $request->validate([
-            'nombre' => ['required', 'string', 'min:3', 'unique:articles,nombre,'.$article->id],
+        //Hacemos las validaciones de todos los campos
+        $request->validate([
+            'nombre' => ['required', 'string', 'min:3', 'unique:articles,nombre,' . $article->id],
             'descripcion' => ['required', 'string', 'min:10'],
             'stock' => ['required', 'integer', 'min:1'],
-            'estado' =>['required']
+            'estado' => ['required']
         ]);
         //actualizamos el registro
-       
+
         $article->update([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'stock' => $request->stock,
-            'estado'=>$request->estado
+            'estado' => $request->estado
         ]);
         //mostramos mensaje  retornamos a index
         return redirect()->route('articles.index')->with('mensaje', "Articulo editado correctamente!");
@@ -101,6 +107,6 @@ class ArticleController extends Controller
     {
         //
         $article->delete();
-        return redirect()->route('articles.index')->with('mensaje','Artículo con id '.$article->id.' borrado correctamente');
+        return redirect()->route('articles.index')->with('mensaje', 'Artículo con id ' . $article->id . ' borrado correctamente');
     }
 }

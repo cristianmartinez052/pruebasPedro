@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Article;
 
@@ -35,3 +36,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('articles', ArticleController::class);
+Route::resource('pedidos',PedidoController::class);

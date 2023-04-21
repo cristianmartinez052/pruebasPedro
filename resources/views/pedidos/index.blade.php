@@ -16,24 +16,22 @@
                 </div>
                 <div class="my-8 ml-3">
 
-                    <a href="{{ route('articles.create') }}"
-                        class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><i
-                            class="fas fa-plus"></i>&nbsp;Nuevo Artículo</a>
+                    
                 </div>
                 <table id="articulos"
                     class="w-full border-collapse bg-white text-left text-sm text-gray-500 text-center">
                     <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">ID</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Nombre</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Descripcion</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Estado</th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Stock</th>
+                        <tr class="text-center">
+                            <th scope="col" class="text-center px-6 py-4 font-medium text-gray-900">ID</th>
+                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Producto</th>
+                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Cantidad</th>
+                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Sede</th> 
+                            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Fecha</th>
                             <th scope="col" class="px-6 py-4 font-medium text-gray-900">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                        @foreach ($articulos as $item)
+                    <tbody class="divide-y divide-gray-100 border-t border-gray-100 text-center">
+                        @foreach ($pedidos as $item)
                             <tr class="hover:bg-gray-50">
                                 <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
                                     <div class="relative h-10 w-10">
@@ -42,20 +40,16 @@
 
                                 </th>
                                 <td>
-                                    <p class="font-medium text-gray-700">{{ $item->nombre }}</p>
+                                    <p class="font-medium text-gray-700">{{ $item->producto }}</p>
                                 </td>
                                 <td>
-                                    {{ $item->descripcion }}
+                                    {{ $item->cantidad }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span
-                                        class="inline-flex items-center gap-1 rounded-full @if ($item->estado == 'Nuevo') bg-green-50 @else bg-orange-50 @endif px-2 py-1 text-xs font-semibold  @if ($item->estado == 'Nuevo') text-green-600 @else text-orange-600 @endif">
-                                        <span
-                                            class="h-1.5 w-1.5 rounded-full @if ($item->estado == 'Nuevo') bg-green-600 @else bg-orange-600 @endif"></span>
-                                        {{ $item->estado }}
-                                    </span>
+                                   {{$item->sede}}
                                 </td>
-                                <td class="px-6 py-4">{{ $item->stock }}</td>
+                            
+                                <td class="px-6 py-4">{{$item->created_at}}</td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="">
@@ -82,7 +76,7 @@
                     </tbody>
                 </table>
                 <div class="mt-4">
-                    {{ $articulos->links() }}
+                    {{ $pedidos->links() }}
                 </div>
             </div>
         </div>
