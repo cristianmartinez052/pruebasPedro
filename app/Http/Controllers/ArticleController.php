@@ -40,6 +40,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
 
+        
         //Hacemos las validaciones de todos los campos
         $request->validate([
             'nombre' => ['required', 'string', 'min:3', 'unique:articles,nombre'],

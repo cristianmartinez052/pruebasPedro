@@ -35,10 +35,10 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
         //Hacemos las validaciones de todos los campos
         $request->validate([
-            'producto' => ['required', 'string', 'min:3', 'unique:articles,nombre'],
+            'producto' => ['required', 'string', 'min:3'],
             'cantidad' => ['required', 'integer', 'min:1'],
             'sede' => ['required', 'string', 'min:5'],
 
@@ -50,8 +50,14 @@ class PedidoController extends Controller
             'sede' => $request->sede,
 
         ]);
+
+        $pedido = new Pedido();
+        $pedido->updateStock($request->id,$request->cantidad);
+        
         return redirect()->route('dashboard')->with('mensaje', 'Pedido creado correctamente!!');
     }
+
+    
 
     /**
      * Display the specified resource.
